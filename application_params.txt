@@ -1,0 +1,20 @@
+# SITN 2013
+# Aplication parameters: example for the application_params.py file required to adapt application to local configuration
+
+# Define your connexion parameters here
+connParams = {
+    'host':'myhost', 
+    'database': 'mydb', 
+    'user': 'me',
+    'password': 'mypassword'  
+}
+
+# Directory containing your files in sub directory named: 'Combilog','Nabel','SamWi' or 'SwissMetNet'
+targetDir = 'D:/John/Doe/'
+
+# Remote Directory, locally mounted, from which to copy csv file
+sourceDir = 'G:/'
+
+# Number of days to store in database
+
+nbDays = 14
