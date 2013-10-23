@@ -36,6 +36,7 @@ def importSwissMetNet(fileList):
             for header in headers:
                 targetFields += SwissMetNet[header] +','
             targetFields = 'idobj,' + targetFields[0:-1]
+            targetFields += ',sourcefile_name'
             # insert each row into table
             for row in reader:
                 idobj = str(uuid.uuid4())
@@ -53,12 +54,14 @@ def importSwissMetNet(fileList):
                 # if no record: insert
                 if isRecordLoaded == 0:
                     sql = "insert into stations_air.meteo_log ("
-                    sql += targetFields + ") VALUES ('"+ idobj + "'," + str(row)[1 : -1] + ");"
+                    sql += targetFields + ") VALUES ('"+ idobj + "'," + str(row)[1 : -1]                     
+                    sql += ",'" + filename + "');"
                     cur.execute(sql)
                 # if record exists already, update with most recent
                 elif isRecordLoaded == 1:
                     sql = "update stations_air.meteo_log set(" + targetFields + ") =  ('" + idobj + "',"+ str(row)[1 : -1] + ") " 
-                    sql += "where station_id = '" + row[0] + "' and date_time = '" + row[1] + "';"      
+                    sql += "where station_id = '" + row[0] + "' and date_time = '" + row[1] 
+                    sql += ",'" + filename + "');"                    
                     cur.execute(sql)
                 
             idobjLog = idobj = str(uuid.uuid4())

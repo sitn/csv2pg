@@ -38,6 +38,7 @@ def importNabel(fileList):
             targetFields += Nabel[header] +',' 
         targetFields = 'idobj,station_id,date_time,' + targetFields
         targetFields = targetFields[0:-1]
+        targetFields += 'sourcefile_name'
         reader = csv.reader(f,dialect='Nabel')
         for row in reader:
             idobj = str(uuid.uuid4())
@@ -51,11 +52,14 @@ def importNabel(fileList):
             isRecordLoaded = int(cur.fetchone()[0])  
             if isRecordLoaded == 0:
                 sql = "insert into stations_air.quality_log ("
-                sql += targetFields + ") VALUES ('"+ idobj + "','" + station_id + "',"+ str(row)[1 : -1] + ");"
+                sql += targetFields + ") VALUES ('"+ idobj + "','" + station_id + "',"+ str(row)[1 : -1]
+                sql += ",'" + filename + "');"
+                
                 cur.execute(sql)
             elif isRecordLoaded == 1:
                 sql = "update stations_air.quality_log set(" + targetFields + ") =  ('" + idobj + "','" + station_id + "',"+ str(row)[1 : -1] + ") " 
-                sql += "where station_id = '" + station_id + "' and date_time = '" + row[0] + "';"      
+                sql += "where station_id = '" + station_id + "' and date_time = '" + row[0] 
+                sql += ",'" + filename + "');"
                 cur.execute(sql)
         conn.commit()
     cur.close()

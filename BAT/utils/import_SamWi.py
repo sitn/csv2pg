@@ -52,6 +52,7 @@ def importSamWi(fileList):
                 targetFields += SamWi[header] +','   
         targetFields = 'idobj,station_id,date_time,' + targetFields
         targetFields = targetFields[0:-1]
+        targetFields += ',sourcefile_name'
         reader = csv.reader(f,dialect='SamWi')
         for row in reader:
             dateString = str(row[0] + ' ' + row[1])
@@ -68,11 +69,13 @@ def importSamWi(fileList):
                 isRecordLoaded = int(cur.fetchone()[0])  
                 if isRecordLoaded == 0:
                     sql = "insert into stations_air.quality_log ("
-                    sql += targetFields + ") VALUES ('"+ idobj + "','" + station_id + "','" + dateTime + "',"+ str(row[2:len(row)])[1 : -1] + ");"
+                    sql += targetFields + ") VALUES ('"+ idobj + "','" + station_id + "','" + dateTime + "',"+ str(row[2:len(row)])[1 : -1] 
+                    sql += ",'" + filename + "');"
                     cur.execute(sql)
                 elif isRecordLoaded > 0:
                     sql = "update stations_air.quality_log set(" + targetFields + ") =  ('"+ idobj + "','" + station_id + "','" + dateTime + "',"+ str(row[2:len(row)])[1 : -1] + ") " 
-                    sql += "where station_id = '" + station_id + "' and date_time = '" + str(dateTime) + "';"      
+                    sql += "where station_id = '" + station_id + "' and date_time = '" + str(dateTime) 
+                    sql += ",'" + filename + "');"                    
                     cur.execute(sql)
                 conn.commit()
     cur.close()

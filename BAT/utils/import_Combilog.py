@@ -30,6 +30,7 @@ def importCombilog(fileList):
         for header in headers:
             targetFields += Combilog[header] +','
         targetFields = 'idobj, station_id, '+ targetFields[0:-1]
+        targetFields += ',sourcefile_name'
         # insert each row into table
         rowImportNumber = 0
         for row in reader:
@@ -46,12 +47,14 @@ def importCombilog(fileList):
                 # if no record: insert
                 if isRecordLoaded == 0:
                     sql = "insert into stations_air.meteo_log ("
-                    sql += targetFields + ") VALUES ('"+ idobj + "','" + station_id +  "'," + str(row)[1 : -1] +");"
+                    sql += targetFields + ") VALUES ('"+ idobj + "','" + station_id +  "'," + str(row)[1 : -1]                     
+                    sql += ",'" + filename + "');"
                     cur.execute(sql)
                 # if record exists already, update with most recent
                 elif isRecordLoaded == 1:
                     sql = "update stations_air.meteo_log set(" + targetFields + ") =  ('"+ idobj + "','" + station_id +  "'," + str(row)[1 : -1] +") " 
-                    sql += "where station_id = '" + station_id + "' and date_time = '" + str(row[0]) + "';"      
+                    sql += "where station_id = '" + station_id + "' and date_time = '" + str(row[0])                    
+                    sql += ",'" + filename + "');"   
                     cur.execute(sql)
         conn.commit()
     cur.close()
