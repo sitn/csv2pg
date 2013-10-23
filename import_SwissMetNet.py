@@ -7,7 +7,7 @@ from matching_dictionnary import SwissMetNet
 from datetime import datetime
 from application_params import *
 
-conn = psycopg2.connect(host=connParams[host], database=connParams[database], user=connParams[user], password=connParams[password])
+conn = psycopg2.connect(host=connParams['host'], database=connParams['database'], user=connParams['user'], password=connParams['password'])
 cur = conn.cursor()
 
     

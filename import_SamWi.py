@@ -9,7 +9,7 @@ from matching_dictionnary import Nabel
 from datetime import datetime, timedelta
 from application_params import *
 
-conn = psycopg2.connect(host=connParams[host], database=connParams[database], user=connParams[user], password=connParams[password])
+conn = psycopg2.connect(host=connParams['host'], database=connParams['database'], user=connParams['user'], password=connParams['password'])
 cur = conn.cursor()
 
 # SamWi Data

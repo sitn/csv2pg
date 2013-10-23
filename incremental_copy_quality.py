@@ -74,7 +74,7 @@ print 'directory cleaning finished'
 
 # remove old records from database
 oldestRecordKept = datetime.today()-timedelta(days = nbDays)
-conn = psycopg2.connect(host=connParams[host], database=connParams[database], user=connParams[user], password=connParams[password])
+conn = psycopg2.connect(host=connParams['host'], database=connParams['database'], user=connParams['user'], password=connParams['password'])
 cur = conn.cursor()
 sql = "delete from stations_air.quality_log where date_time < '" + str(oldestRecordKept) + "';"
 cur.execute(sql)
