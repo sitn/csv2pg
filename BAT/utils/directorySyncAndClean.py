@@ -48,7 +48,7 @@ def dirSync():
                 if not os.path.exists(targetDir + dir + '/' + filename):
                     shutil.copy(inputFile,targetFile)
                     nbNewFilesCopied += 1
-                    filesToLoad.append(filename)
+                    filesToLoad.append([filename, False])
                     print targetFile                 
                 # if it does exist, we need to check if it has been modified
                 else:
@@ -57,11 +57,14 @@ def dirSync():
                     
                     if not fileModified:
                         shutil.copy(inputFile,targetFile)
-                        filesToLoad.append(filename) 
+                        filesToLoad.append([filename, True])
                         nbModifiedFilesCopied  += 1    
         dictFilesToLoad[dir] = filesToLoad
  
     print 'copied ' + str(nbNewFilesCopied) + ' new files and ' + str(nbModifiedFilesCopied) + ' modified files'
+    f = open('log.txt', 'a')
+    f.write('\nSynchronization task completed')
+    f.close()
     return dictFilesToLoad
     
 # clean target directory from old files: iterate on target directory
@@ -112,3 +115,33 @@ def removeOldRecords():
     cur.close()
     conn.close()
     print 'removed records older that ' + str(nbDays) + ' days from the datebase'
+    
+    
+def fullDataBaseReload():
+
+    # empty database
+    conn = psycopg2.connect(host=connParams['host'], database=connParams['database'], user=connParams['user'], password=connParams['password'])
+
+    print 'Removing old files from db'
+    cur = conn.cursor()
+    sql = "delete from stations_air.meteo_log;"
+    cur.execute(sql)
+    sql = "delete from stations_air.quality_log;"
+    cur.execute(sql)
+    conn.commit()
+    cur.close()
+    conn.close()
+    
+    # empty folders
+    
+    for dir in directories:
+        curDir = targetDir + dir
+        fileList = os.listdir(curDir)
+        for file in fileList:
+            os.remove(curDir + '/' + file)
+            
+    print 'Removed all records in database and directories'
+    f = open('log.txt', 'a')
+    f.write('\nRemoved all records in database and directories')
+    f.close()
+    

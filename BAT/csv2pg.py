@@ -10,6 +10,16 @@ from utils.import_SwissMetNet import *
 from utils.import_SamWi import *
 from utils.import_Nabel import *
 
+startUpdateTime = datetime.now()
+f = open('log.txt', 'a')
+f.write('\n############################')
+f.write('\n\nMeteo update task started at ' + str(startUpdateTime))
+f.close()
+
+# if wished, remove all records from folders and database
+if reloadAll:
+    fullDataBaseReload()
+
 
 
 # Synchronize the directories
@@ -41,3 +51,10 @@ if dictFilesToLoad.has_key('Nabel'):
 if dictFilesToLoad.has_key('SamWi'):
     importSamWi(dictFilesToLoad['SamWi'])
     
+stopUpdateTime = datetime.now()
+executionTime = stopUpdateTime - startUpdateTime
+f = open('log.txt', 'a')
+f.write('\nMeteo update task completed at ' + str(stopUpdateTime) + ' duration:' + str(executionTime))
+f.write('\n############################')
+f.close()
+
