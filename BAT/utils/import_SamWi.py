@@ -84,5 +84,5 @@ def importSamWi(fileList):
     conn.close()
     print 'loading of SamWi data successfull, ' + str(k) + ' new files loaded into the database'
     f = open('log.txt', 'a')
-    f.write('\nSamWi import task completed')
+    f.write('\nloading of SamWi data successfull, ' + str(k) + ' new files loaded into the database')
     f.close()

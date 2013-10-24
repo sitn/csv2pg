@@ -77,5 +77,5 @@ def importSwissMetNet(fileList):
     conn.close()
     print 'loading of swissMetNet data successfull, ' + str(k) + ' new files loaded into the database'
     f = open('log.txt', 'a')
-    f.write('\nSwissMetNet import task completed')
+    f.write('\nloading of swissMetNet data successfull, ' + str(k) + ' new files loaded into the database')
     f.close()

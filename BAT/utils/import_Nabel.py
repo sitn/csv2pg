@@ -68,5 +68,5 @@ def importNabel(fileList):
     conn.close()
     print 'loading of Nabel data successfull, ' + str(k) + ' new files loaded into the database'
     f = open('log.txt', 'a')
-    f.write('\nNabel import task completed')
+    f.write('\nloading of Nabel data successfull, ' + str(k) + ' new files loaded into the database')
     f.close()

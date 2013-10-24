@@ -63,5 +63,5 @@ def importCombilog(fileList):
     conn.close()
     print 'loading of Combilog data successfull, ' + str(k) + ' new files loaded into the database'
     f = open('log.txt', 'a')
-    f.write('\nCombilog import task completed')
+    f.write('\nloading of Combilog data successfull, ' + str(k) + ' new files loaded into the database')
     f.close()

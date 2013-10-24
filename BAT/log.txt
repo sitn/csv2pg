@@ -1,0 +1,11 @@
+
+############################
+
+Meteo update task started at 2013-10-24 11:36:19.558000
+Synchronization task completed
+loading of Combilog data successfull, 0 new files loaded into the database
+loading of swissMetNet data successfull, 0 new files loaded into the database
+loading of Nabel data successfull, 0 new files loaded into the database
+loading of SamWi data successfull, 0 new files loaded into the database
+Meteo update task completed at 2013-10-24 11:36:38.991000 duration:0:00:19.433000
+############################
