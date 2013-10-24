@@ -141,6 +141,9 @@ CREATE TABLE stations_air.meteo_log
   res1 double precision,
   res2 double precision,
   res3 double precision, 
+  
+  sourcefile_name character(256),
+  
   CONSTRAINT meteo_log_pkey PRIMARY KEY (idobj )
 )
 WITH (
@@ -296,6 +299,8 @@ CREATE TABLE stations_air.quality_log
   res1 double precision,
   res2 double precision,
   res3 double precision,
+  
+  sourcefile_name character(256),
     
   CONSTRAINT quality_log_pkey PRIMARY KEY (idobj )
 )
