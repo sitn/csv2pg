@@ -15,9 +15,10 @@ def importCombilog(fileList):
     nbFile = len(fileList)
     k = 0
     maxImport = 145 # ugly data => ugly cleaning
-    for filename in fileList:
+    for item in fileList:
+        filename = item[0]
+        isNewFile = item[1]
         station_id =filename[0:3]
-        print station_id
         k+=1
         print 'loading file : ' + filename
         filePath = targetDir + 'Combilog/' + filename
@@ -52,11 +53,15 @@ def importCombilog(fileList):
                     cur.execute(sql)
                 # if record exists already, update with most recent
                 elif isRecordLoaded == 1:
-                    sql = "update stations_air.meteo_log set(" + targetFields + ") =  ('"+ idobj + "','" + station_id +  "'," + str(row)[1 : -1] +") " 
-                    sql += "where station_id = '" + station_id + "' and date_time = '" + str(row[0])                    
-                    sql += ",'" + filename + "');"   
+                    sql = "update stations_air.meteo_log set(" + targetFields + ") =  ('"+ idobj + "','" + station_id +  "'," + str(row)[1 : -1]
+                    sql += ",'" + filename + "') " 
+                    sql += "where station_id = '" + station_id + "' and date_time = '" + str(row[0]) + "'"                  
                     cur.execute(sql)
+
         conn.commit()
     cur.close()
     conn.close()
     print 'loading of Combilog data successfull, ' + str(k) + ' new files loaded into the database'
+    f = open('log.txt', 'a')
+    f.write('\nCombilog import task completed')
+    f.close()

@@ -16,7 +16,9 @@ cur = conn.cursor()
 def importSwissMetNet(fileList):
     nbFile = len(fileList)
     k = 0
-    for filename in fileList:
+    for item in fileList:
+        filename = item[0]
+        isNewFile = item[1]
         sqlCheckImport = "select count(*) as countItem from stations_air.import_log where filename = '" + filename+ "';"
         cur.execute(sqlCheckImport)
         isAlreadyLoaded = int(cur.fetchone()[0])
@@ -59,9 +61,9 @@ def importSwissMetNet(fileList):
                     cur.execute(sql)
                 # if record exists already, update with most recent
                 elif isRecordLoaded == 1:
-                    sql = "update stations_air.meteo_log set(" + targetFields + ") =  ('" + idobj + "',"+ str(row)[1 : -1] + ") " 
-                    sql += "where station_id = '" + row[0] + "' and date_time = '" + row[1] 
-                    sql += ",'" + filename + "');"                    
+                    sql = "update stations_air.meteo_log set(" + targetFields + ") =  ('" + idobj + "',"+ str(row)[1 : -1]
+                    sql += ",'" + filename + "') "   
+                    sql += "where station_id = '" + row[0] + "' and date_time = '" + row[1] + "'"                 
                     cur.execute(sql)
                 
             idobjLog = idobj = str(uuid.uuid4())
@@ -74,3 +76,6 @@ def importSwissMetNet(fileList):
     cur.close()
     conn.close()
     print 'loading of swissMetNet data successfull, ' + str(k) + ' new files loaded into the database'
+    f = open('log.txt', 'a')
+    f.write('\nSwissMetNet import task completed')
+    f.close()

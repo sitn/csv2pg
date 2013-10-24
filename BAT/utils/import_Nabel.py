@@ -18,7 +18,9 @@ def importNabel(fileList):
     nbFile = len(fileList)
     k = 0
 
-    for filename in fileList:
+    for item in fileList:
+        filename = item[0]
+        isNewFile = item[1]
         if filename[0:16] == 'airmet_kt_CHA_NE':
             station_id = '999'
         elif filename[0:16] == 'airmet_kt_PAY_NE':
@@ -38,7 +40,7 @@ def importNabel(fileList):
             targetFields += Nabel[header] +',' 
         targetFields = 'idobj,station_id,date_time,' + targetFields
         targetFields = targetFields[0:-1]
-        targetFields += 'sourcefile_name'
+        targetFields += ',sourcefile_name'
         reader = csv.reader(f,dialect='Nabel')
         for row in reader:
             idobj = str(uuid.uuid4())
@@ -57,11 +59,14 @@ def importNabel(fileList):
                 
                 cur.execute(sql)
             elif isRecordLoaded == 1:
-                sql = "update stations_air.quality_log set(" + targetFields + ") =  ('" + idobj + "','" + station_id + "',"+ str(row)[1 : -1] + ") " 
-                sql += "where station_id = '" + station_id + "' and date_time = '" + row[0] 
-                sql += ",'" + filename + "');"
+                sql = "update stations_air.quality_log set(" + targetFields + ") =  ('" + idobj + "','" + station_id + "',"+ str(row)[1 : -1] 
+                sql += ",'" + filename + "') "
+                sql += "where station_id = '" + station_id + "' and date_time = '" + row[0]  + "'" 
                 cur.execute(sql)
         conn.commit()
     cur.close()
     conn.close()
     print 'loading of Nabel data successfull, ' + str(k) + ' new files loaded into the database'
+    f = open('log.txt', 'a')
+    f.write('\nNabel import task completed')
+    f.close()

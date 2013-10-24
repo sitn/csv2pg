@@ -48,7 +48,7 @@ def dirSync():
                 if not os.path.exists(targetDir + dir + '/' + filename):
                     shutil.copy(inputFile,targetFile)
                     nbNewFilesCopied += 1
-                    filesToLoad.append(filename)
+                    filesToLoad.append([filename, False])
                     print targetFile                 
                 # if it does exist, we need to check if it has been modified
                 else:
@@ -57,11 +57,14 @@ def dirSync():
                     
                     if not fileModified:
                         shutil.copy(inputFile,targetFile)
-                        filesToLoad.append(filename) 
+                        filesToLoad.append([filename, True])
                         nbModifiedFilesCopied  += 1    
         dictFilesToLoad[dir] = filesToLoad
  
     print 'copied ' + str(nbNewFilesCopied) + ' new files and ' + str(nbModifiedFilesCopied) + ' modified files'
+    f = open('log.txt', 'a')
+    f.write('\nSynchronization task completed')
+    f.close()
     return dictFilesToLoad
     
 # clean target directory from old files: iterate on target directory
