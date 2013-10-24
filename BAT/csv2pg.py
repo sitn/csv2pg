@@ -15,6 +15,13 @@ f = open('log.txt', 'a')
 f.write('\n############################')
 f.write('\n\nMeteo update task started at ' + str(startUpdateTime))
 f.close()
+
+# if wished, remove all records from folders and database
+if reloadAll:
+    fullDataBaseReload()
+
+
+
 # Synchronize the directories
 dictFilesToLoad = dirSync()
 

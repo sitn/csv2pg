@@ -115,3 +115,33 @@ def removeOldRecords():
     cur.close()
     conn.close()
     print 'removed records older that ' + str(nbDays) + ' days from the datebase'
+    
+    
+def fullDataBaseReload():
+
+    # empty database
+    conn = psycopg2.connect(host=connParams['host'], database=connParams['database'], user=connParams['user'], password=connParams['password'])
+
+    print 'Removing old files from db'
+    cur = conn.cursor()
+    sql = "delete from stations_air.meteo_log;"
+    cur.execute(sql)
+    sql = "delete from stations_air.quality_log;"
+    cur.execute(sql)
+    conn.commit()
+    cur.close()
+    conn.close()
+    
+    # empty folders
+    
+    for dir in directories:
+        curDir = targetDir + dir
+        fileList = os.listdir(curDir)
+        for file in fileList:
+            os.remove(curDir + '/' + file)
+            
+    print 'Removed all records in database and directories'
+    f = open('log.txt', 'a')
+    f.write('\nRemoved all records in database and directories')
+    f.close()
+    
