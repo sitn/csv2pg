@@ -102,11 +102,11 @@ def removeOldFiles():
 # remove old records from database
  
 def removeOldRecords():
-
+    print 'Removing old records from database'
     # db connection
     conn = psycopg2.connect(host=connParams['host'], database=connParams['database'], user=connParams['user'], password=connParams['password'])
 
-    print 'Removing old records from database'
+
     oldestRecordKept = datetime.today()-timedelta(days = nbDays)
     cur = conn.cursor()
     sql = "delete from stations_air.meteo_log where date_time < '" + str(oldestRecordKept) + "';"
