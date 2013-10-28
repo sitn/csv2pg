@@ -48,8 +48,8 @@ if dictFilesToLoad.has_key('Nabel'):
     importNabel(dictFilesToLoad['Nabel'])
     
 # SamWi Data
-if dictFilesToLoad.has_key('SamWi'):
-    importSamWi(dictFilesToLoad['SamWi'])
+if dictFilesToLoad.has_key('SamWI'):
+    importSamWi(dictFilesToLoad['SamWI'])
     
 stopUpdateTime = datetime.now()
 executionTime = stopUpdateTime - startUpdateTime
