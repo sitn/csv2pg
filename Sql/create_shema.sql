@@ -483,33 +483,55 @@ GRANT SELECT ON TABLE stations_air.public_air_data TO "www-data";
 */
 
 CREATE OR REPLACE VIEW stations_air.meteo_layer AS 
-select description.idobj, station_id, fullname, altitude,date_time, vvit, case when vdir is null then -9999 else vdir end as vdir,
-    case when vdir is null then -9999 else -vdir + 90 end as vdir_map, vraf, vvnorth, vvest, vfreq, hr2, t2, 
-    cast(t2 as text) || '°' as label_meteo,t10, tusa, tpt100, tdp, patm, geom, pluginlink  
-from (	select * from (
-		select meteo_log.station_id AS station_id_u, max(meteo_log.date_time) AS last_log from stations_air.meteo_log
-		group by meteo_log.station_id) as last_meteo_log
-	join stations_air.meteo_log on last_meteo_log.station_id_u = stations_air.meteo_log.station_id 
-	where meteo_log.date_time = last_meteo_log.last_log) as public_meteo_data, 
-stations_air.description where cast(public_meteo_data.station_id as int) = description.id order by date_time asc;
+  SELECT description.idobj, public_meteo_data.station_id, description.fullname, description.altitude, public_meteo_data.date_time, public_meteo_data.vvit, 
+        CASE
+            WHEN public_meteo_data.vdir IS NULL THEN (-9999)::double precision
+            ELSE public_meteo_data.vdir
+        END AS vdir,
+        CASE
+		WHEN now() - public_meteo_data.date_time > interval '2 hours' THEN TRUE 
+		ELSE FALSE
+	END as isdatauptodate,
+        CASE
+            WHEN public_meteo_data.vdir IS NULL THEN (-9999)::double precision
+            ELSE (- public_meteo_data.vdir) + 90::double precision
+        END AS vdir_map, public_meteo_data.vraf, public_meteo_data.vvnorth, public_meteo_data.vvest, public_meteo_data.vfreq, public_meteo_data.hr2, public_meteo_data.t2, public_meteo_data.t2::text || '°'::text AS label_meteo, public_meteo_data.t10, public_meteo_data.tusa, public_meteo_data.tpt100, public_meteo_data.tdp, public_meteo_data.patm, description.geom, description.pluginlink
+   FROM ( SELECT last_meteo_log.station_id_u, last_meteo_log.last_log, meteo_log.idobj, meteo_log.station_id, meteo_log.date_time, meteo_log.vvit, meteo_log.vraf, meteo_log.vvscal, meteo_log.vvert, meteo_log.vvnorth, meteo_log.vvest, meteo_log.vfreq, meteo_log.vdir, meteo_log.mbar, meteo_log.ta, meteo_log.t05, meteo_log.t2, meteo_log.t10, meteo_log.tusa, meteo_log.tpt100, meteo_log.tnv, meteo_log.tdp, meteo_log.tpsy, meteo_log.t36, meteo_log.tpt1000, meteo_log.hr, meteo_log.hr2, meteo_log.ren, meteo_log.rbil, meteo_log.rglo, meteo_log.rdur, meteo_log.patm, meteo_log.patmr, meteo_log.pvap, meteo_log.prec_h, meteo_log.prec_d, meteo_log.prec_s, meteo_log.neb, meteo_log.alt850, meteo_log.ti, meteo_log.hi, meteo_log.te_1471, meteo_log.te_0513, meteo_log.te_bat, meteo_log.te_pan, meteo_log.te_vt3_2, meteo_log.te_vt3_10, meteo_log.tboit, meteo_log.tcell, meteo_log.res1, meteo_log.res2, meteo_log.res3, meteo_log.sourcefile_name
+           FROM ( SELECT meteo_log.station_id AS station_id_u, max(meteo_log.date_time) AS last_log
+                   FROM stations_air.meteo_log
+                  GROUP BY meteo_log.station_id) last_meteo_log
+      JOIN stations_air.meteo_log ON last_meteo_log.station_id_u = meteo_log.station_id
+     WHERE meteo_log.date_time = last_meteo_log.last_log) public_meteo_data, stations_air.description
+  WHERE public_meteo_data.station_id::integer = description.id
+  ORDER BY public_meteo_data.date_time;
 
+ALTER TABLE stations_air.meteo_layer
+  OWNER TO mapfish;
+GRANT ALL ON TABLE stations_air.meteo_layer TO mapfish;
 GRANT SELECT ON TABLE stations_air.meteo_layer TO "www-data";
 		
 -- add station information from description table
 CREATE OR REPLACE VIEW stations_air.quality_layer AS 
-select description.idobj, station_id, fullname, altitude,date_time, vvit, case when vdir is null then -9999 else vdir end, 
-vvnorth, vvest, vraf, vfreq, hr2, t2, t10, tusa, tpt100, tdp, patm, no, no2, nox,o3, so2,co,pm10_c,ren, prec_h, geom, pluginlink  
-from (
-select * from (
-		select quality_log.station_id as station_id_u, max(quality_log.date_time) AS last_log
-		from stations_air.quality_log
-		group by quality_log.station_id
-	) as last_quality_log
-	join stations_air.quality_log on last_quality_log.station_id_u = stations_air.quality_log.station_id 
-	where quality_log.date_time = last_quality_log.last_log
+SELECT description.idobj, public_quality_data.station_id, description.fullname, description.altitude, public_quality_data.date_time, public_quality_data.vvit, 
+        CASE
+            WHEN public_quality_data.vdir IS NULL THEN (-9999)::double precision
+            ELSE public_quality_data.vdir
+        END AS vdir, 
+        CASE
+		WHEN now() - public_quality_data.date_time > interval '3 hours' THEN FALSE 
+		ELSE TRUE
+	END as isdatauptodate,
+        public_quality_data.vvnorth, public_quality_data.vvest, public_quality_data.vraf, public_quality_data.vfreq, public_quality_data.hr2, public_quality_data.t2, public_quality_data.t10, public_quality_data.tusa, public_quality_data.tpt100, public_quality_data.tdp, public_quality_data.patm, public_quality_data.no, public_quality_data.no2, public_quality_data.nox, public_quality_data.o3, public_quality_data.so2, public_quality_data.co, public_quality_data.pm10_c, public_quality_data.ren, public_quality_data.prec_h, description.geom, description.pluginlink
+   FROM ( SELECT last_quality_log.station_id_u, last_quality_log.last_log, quality_log.idobj, quality_log.station_id, quality_log.date_time, quality_log.no, quality_log.no2, quality_log.nox, quality_log.o3, quality_log.so2, quality_log.co, quality_log.voc_thc, quality_log.voc_n_ch4, quality_log.voc_ch4, quality_log.pm1, quality_log.pm10_c, quality_log.pm10_c_2, quality_log.pm10_m, quality_log.pm10_rm, quality_log.pm10_s, quality_log.pm10_is, quality_log.pm10_t1, quality_log.pm10_t2, quality_log.pm10_t3, quality_log.pm10_t4, quality_log.pm10_p1, quality_log.pm10_p2, quality_log.pm10_p3, quality_log.pm10_percent_hc, quality_log.pm10_status, quality_log.pm10_status_time, quality_log.pm10_limit, quality_log.pm10_time_limit, quality_log.pm10_error, quality_log.pm10_time_error, quality_log.pm10_cmin, quality_log.pm10_cmax, quality_log.pm10_qop, quality_log.pm10_rh, quality_log.pm10_percent_off, quality_log.pm10_m2, quality_log.pm10_bcl, quality_log.pm10_bcs, quality_log.pm10_bc, quality_log.pm10_na, quality_log.pm10_ncf, quality_log.pm10_ncl, quality_log.pm10_nc, quality_log.pm10_2_5c, quality_log.btx_be, quality_log.btx_to, quality_log.btx_mx, quality_log.btx_px, quality_log.btx_ox, quality_log.btx_mpx, quality_log.btx_ebe, quality_log.vvit, quality_log.vvit_2, quality_log.vraf, quality_log.vvscal, quality_log.vvert, quality_log.vvnorth, quality_log.vvest, quality_log.vfreq, quality_log.vdir, quality_log.mbar, quality_log.ta, quality_log.t05, quality_log.t2, quality_log.t10, quality_log.tusa, quality_log.tpt100, quality_log.tnv, quality_log.tdp, quality_log.tpsy, quality_log.t36, quality_log.tpt1000, quality_log.hr, quality_log.hr2, quality_log.ren, quality_log.rbil, quality_log.rglo, quality_log.rdur, quality_log.patm, quality_log.patmr, quality_log.pvap, quality_log.prec_h, quality_log.prec_d, quality_log.prec_s, quality_log.neb, quality_log.alt850, quality_log.ti, quality_log.hi, quality_log.te_1471, quality_log.te_0513, quality_log.te_bat, quality_log.te_pan, quality_log.te_vt3_2, quality_log.te_vt3_10, quality_log.tboit, quality_log.tcell, quality_log.res1, quality_log.res2, quality_log.res3, quality_log.sourcefile_name
+           FROM ( SELECT quality_log.station_id AS station_id_u, max(quality_log.date_time) AS last_log
+                   FROM stations_air.quality_log
+                  GROUP BY quality_log.station_id) last_quality_log
+      JOIN stations_air.quality_log ON last_quality_log.station_id_u = quality_log.station_id
+     WHERE quality_log.date_time = last_quality_log.last_log) public_quality_data, stations_air.description
+  WHERE public_quality_data.station_id::integer = description.id
+  ORDER BY public_quality_data.date_time;
 
-) as public_quality_data, stations_air.description 
-where cast(public_quality_data.station_id as int) = description.id 
-order by date_time asc;
-
+ALTER TABLE stations_air.quality_layer
+  OWNER TO mapfish;
+GRANT ALL ON TABLE stations_air.quality_layer TO mapfish;
 GRANT SELECT ON TABLE stations_air.quality_layer TO "www-data";
