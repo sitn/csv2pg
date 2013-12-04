@@ -489,8 +489,8 @@ CREATE OR REPLACE VIEW stations_air.meteo_layer AS
             ELSE public_meteo_data.vdir
         END AS vdir,
         CASE
-		WHEN now() - public_meteo_data.date_time > interval '2 hours' THEN TRUE 
-		ELSE FALSE
+		WHEN now() - public_meteo_data.date_time > interval '2 hours' THEN 1 
+		ELSE 0
 	END as isdatauptodate,
         CASE
             WHEN public_meteo_data.vdir IS NULL THEN (-9999)::double precision
@@ -518,8 +518,8 @@ SELECT description.idobj, public_quality_data.station_id, description.fullname, 
             ELSE public_quality_data.vdir
         END AS vdir, 
         CASE
-		WHEN now() - public_quality_data.date_time > interval '3 hours' THEN FALSE 
-		ELSE TRUE
+		WHEN now() - public_quality_data.date_time > interval '3 hours' THEN 1 
+		ELSE 0
 	END as isdatauptodate,
         public_quality_data.vvnorth, public_quality_data.vvest, public_quality_data.vraf, public_quality_data.vfreq, public_quality_data.hr2, public_quality_data.t2, public_quality_data.t10, public_quality_data.tusa, public_quality_data.tpt100, public_quality_data.tdp, public_quality_data.patm, public_quality_data.no, public_quality_data.no2, public_quality_data.nox, public_quality_data.o3, public_quality_data.so2, public_quality_data.co, public_quality_data.pm10_c, public_quality_data.ren, public_quality_data.prec_h, description.geom, description.pluginlink
    FROM ( SELECT last_quality_log.station_id_u, last_quality_log.last_log, quality_log.idobj, quality_log.station_id, quality_log.date_time, quality_log.no, quality_log.no2, quality_log.nox, quality_log.o3, quality_log.so2, quality_log.co, quality_log.voc_thc, quality_log.voc_n_ch4, quality_log.voc_ch4, quality_log.pm1, quality_log.pm10_c, quality_log.pm10_c_2, quality_log.pm10_m, quality_log.pm10_rm, quality_log.pm10_s, quality_log.pm10_is, quality_log.pm10_t1, quality_log.pm10_t2, quality_log.pm10_t3, quality_log.pm10_t4, quality_log.pm10_p1, quality_log.pm10_p2, quality_log.pm10_p3, quality_log.pm10_percent_hc, quality_log.pm10_status, quality_log.pm10_status_time, quality_log.pm10_limit, quality_log.pm10_time_limit, quality_log.pm10_error, quality_log.pm10_time_error, quality_log.pm10_cmin, quality_log.pm10_cmax, quality_log.pm10_qop, quality_log.pm10_rh, quality_log.pm10_percent_off, quality_log.pm10_m2, quality_log.pm10_bcl, quality_log.pm10_bcs, quality_log.pm10_bc, quality_log.pm10_na, quality_log.pm10_ncf, quality_log.pm10_ncl, quality_log.pm10_nc, quality_log.pm10_2_5c, quality_log.btx_be, quality_log.btx_to, quality_log.btx_mx, quality_log.btx_px, quality_log.btx_ox, quality_log.btx_mpx, quality_log.btx_ebe, quality_log.vvit, quality_log.vvit_2, quality_log.vraf, quality_log.vvscal, quality_log.vvert, quality_log.vvnorth, quality_log.vvest, quality_log.vfreq, quality_log.vdir, quality_log.mbar, quality_log.ta, quality_log.t05, quality_log.t2, quality_log.t10, quality_log.tusa, quality_log.tpt100, quality_log.tnv, quality_log.tdp, quality_log.tpsy, quality_log.t36, quality_log.tpt1000, quality_log.hr, quality_log.hr2, quality_log.ren, quality_log.rbil, quality_log.rglo, quality_log.rdur, quality_log.patm, quality_log.patmr, quality_log.pvap, quality_log.prec_h, quality_log.prec_d, quality_log.prec_s, quality_log.neb, quality_log.alt850, quality_log.ti, quality_log.hi, quality_log.te_1471, quality_log.te_0513, quality_log.te_bat, quality_log.te_pan, quality_log.te_vt3_2, quality_log.te_vt3_10, quality_log.tboit, quality_log.tcell, quality_log.res1, quality_log.res2, quality_log.res3, quality_log.sourcefile_name
