@@ -489,7 +489,7 @@ CREATE OR REPLACE VIEW stations_air.meteo_layer AS
             ELSE public_meteo_data.vdir
         END AS vdir,
         CASE
-		WHEN now() - public_meteo_data.date_time > interval '2 hours' THEN 0 
+		WHEN now() - public_meteo_data.date_time > interval '3 hours' THEN 0 
 		ELSE 1
 	END as isdatauptodate,
         CASE
