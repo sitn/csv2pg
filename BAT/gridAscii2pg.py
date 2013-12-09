@@ -17,25 +17,23 @@ for file in os.listdir(gridTargetDir + o3Dir + '/new'):
 for file in os.listdir(gridTargetDir + pm10Dir + '/new'):
     os.remove(gridTargetDir + pm10Dir + '/new' + '/' + file)
 
+# Import and extract new files into main folder, make a copy in the "new" subfolder, later used by FME
 
 for filename in os.listdir(gridSourceDir):
 
-    inputFile =  gridSourceDir + '/' + filename
-    
-    targetFile =  gridTargetDir + '/' + filename
-    
-    # print 'Extracting and copying gridascii file: ' + filename
-    
-    # Import only data that are within a given time range
+    inputFile =  gridSourceDir + '/' + filename # Remote disk on which meteotest data are delivered
+    targetFile =  gridTargetDir + '/' + filename # Local disk on which archives will be extracted
+     
+    # Get the current system time
     today = datetime.today()
     
-    
-    # shutil.copy(inputFile, targetFile)
+    # initialize a few variables
     cmd = ''
     strFileDate = ''
     destFilePath = ''
     destFileRootPath = ''
     
+    # adapt for each model
     if filename[0:5] == no2Code:
         strFileDate = filename[7:-7].replace('_', ' ') + '0000'
         fileDate = datetime.strptime(strFileDate , '%Y%m%d %H%M%S')
@@ -56,11 +54,10 @@ for filename in os.listdir(gridSourceDir):
         destFilePath =  destFileRootPath + filename[:-3]  
     
 
-        
+    # Copy new files in destination folder
     if not os.path.exists(destFilePath):
         
         # Check if file not too old
-        
         if today - fileDate <= timedelta(days = (nbDaysGrid)):
             
             # extract the file using 7zip executable launched by python subprocess
@@ -70,9 +67,27 @@ for filename in os.listdir(gridSourceDir):
 
             print 'File: ' + inputFile + ' has now been extracted to destination directory'
         else:  
-
             print 'Not copying outdated file file already existing in destination folder: ' + destFilePath
-                
+    
+    # Remove old files         
     if os.path.exists(destFilePath) and today - fileDate > timedelta(days = (nbDaysGrid)):
         os.remove(destFilePath)
         print 'Deleted old file: ' + destFilePath
+
+# Delete old records from the database
+
+print 'Removing old records from database'
+# db connection
+conn = psycopg2.connect(host=connParams['host'], database=connParams['database'], user=connParams['user'], password=connParams['password'])
+oldestRecordKept = datetime.today()-timedelta(days = nbDaysGrid)
+cur = conn.cursor()
+sql = "delete from stations_air.no2_grid where date_time < '" + str(oldestRecordKept) + "';"
+cur.execute(sql)
+sql = "delete from stations_air.o3_grid where date_time < '" + str(oldestRecordKept) + "';"
+cur.execute(sql)
+sql = "delete from stations_air.pm10_grid where date_time < '" + str(oldestRecordKept) + "';"
+cur.execute(sql)
+conn.commit()
+cur.close()
+conn.close()
+print 'removed records older that ' + str(nbDaysGrid) + ' days from the datebase'
