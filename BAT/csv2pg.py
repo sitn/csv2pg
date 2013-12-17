@@ -45,10 +45,10 @@ if dictFilesToLoad.has_key('Combilog'):
     
 # SwissMetNet Data
 if dictFilesToLoad.has_key('SwissMetNet'):
-    #~ try:
+    try:
         importSwissMetNet(dictFilesToLoad['SwissMetNet'])
-    #~ except:
-        #~ print 'SwissMetNet import crashed' 
+    except:
+        print 'SwissMetNet import crashed' 
     
 # Nabel Data
 if dictFilesToLoad.has_key('Nabel'):
