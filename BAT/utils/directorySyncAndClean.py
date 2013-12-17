@@ -13,54 +13,60 @@ def dirSync():
     # copy file from source directory
 
     for dir in directories:
+        print 'Importing :' + dir
         filesToLoad = []
         for filename in os.listdir(sourceDir + dir):
-            # define current directory
-            inputFile = sourceDir + dir + '/' + filename
-            targetFile = targetDir + dir + '/' + filename
-            date = datetime.today() # initialize object
-            
-            # get the file date out of it's name as it's more reliable here
-            # needed to copy only file created within the choosen number of days
-            if dir == 'Nabel':
-                dateString = filename[17:25]
-                date = datetime.strptime(dateString, '%d%m%Y')
-            elif dir == 'Combilog':
-                dateString = filename[6:14]
-                date = datetime.strptime(dateString, '%Y%m%d')
-            elif dir == 'SwissMetNet':
-                dateString = filename[7:19]
-                date = datetime.strptime(dateString, '%Y%m%d%H%M')
-            elif dir == 'SamWi':
-                f = open(inputFile)
-                csv.register_dialect('SamWi', delimiter=',', skipinitialspace=1)
-                reader = csv.reader(f, dialect='SamWi')
-                l1 = reader.next()
-                reader.next()
-                reader.next()
-                dateString = str(reader.next()[0])
-                date = datetime.strptime(dateString, '%d.%m.%Y')
-                f.close()
+            checkit =os.path.isfile(sourceDir + dir + '/' +  filename)
+            if os.path.isfile(sourceDir + dir + '/' +  filename):
+                # define current directory
+                inputFile = sourceDir + dir + '/' + filename
+                targetFile = targetDir + dir + '/' + filename
+                date = datetime.today() # initialize object
                 
-            # only copy file produced during the choosen time interval
-            if datetime.today() - date <= timedelta(days = nbDays):
-                # if the file doesn't exist in target sir, it's a new one and we copy it
-                if not os.path.exists(targetDir + dir + '/' + filename):
-                    shutil.copy(inputFile,targetFile)
-                    nbNewFilesCopied += 1
-                    filesToLoad.append([filename, False])
-                    print targetFile                 
-                # if it does exist, we need to check if it has been modified
-                else:
-                    # check if file has been overwritten in remote directory
-                    fileModified = filecmp.cmp(inputFile, targetFile)
+                # get the file date out of it's name as it's more reliable here
+                # needed to copy only file created within the choosen number of days
+                if dir == 'Nabel':
+                    dateString = filename[17:25]
+                    date = datetime.strptime(dateString, '%d%m%Y')
+                elif dir == 'Combilog':
+                    if len(filename) == 19:
+                        dateString = filename[7:15]
+                    elif len(filename) == 18:
+                        dateString = filename[6:14] 
+                    date = datetime.strptime(dateString, '%Y%m%d')
+                elif dir == 'SwissMetNet':
+                    dateString = filename[7:19]
+                    date = datetime.strptime(dateString, '%Y%m%d%H%M')
+                elif dir == 'SamWi':
+                    f = open(inputFile)
+                    csv.register_dialect('SamWi', delimiter=',', skipinitialspace=1)
+                    reader = csv.reader(f, dialect='SamWi')
+                    l1 = reader.next()
+                    reader.next()
+                    reader.next()
+                    dateString = str(reader.next()[0])
+                    date = datetime.strptime(dateString, '%d.%m.%Y')
+                    f.close()
                     
-                    if not fileModified:
+                # only copy file produced during the choosen time interval
+                if datetime.today() - date <= timedelta(days = nbDays):
+                    # if the file doesn't exist in target sir, it's a new one and we copy it
+                    if not os.path.exists(targetDir + dir + '/' + filename):
+                        print targetFile
                         shutil.copy(inputFile,targetFile)
-                        filesToLoad.append([filename, True])
-                        nbModifiedFilesCopied  += 1    
+                        nbNewFilesCopied += 1
+                        filesToLoad.append([filename, False])
+                        print targetFile                 
+                    # if it does exist, we need to check if it has been modified
+                    else:
+                        # check if file has been overwritten in remote directory
+                        fileModified = filecmp.cmp(inputFile, targetFile)
+                        
+                        if not fileModified:
+                            shutil.copy(inputFile,targetFile)
+                            filesToLoad.append([filename, True])
+                            nbModifiedFilesCopied  += 1    
         dictFilesToLoad[dir] = filesToLoad
- 
     print 'copied ' + str(nbNewFilesCopied) + ' new files and ' + str(nbModifiedFilesCopied) + ' modified files'
     f = open('log.txt', 'a')
     f.write('\nSynchronization task completed')
@@ -79,10 +85,13 @@ def removeOldFiles():
                 dateString = filename[17:25]
                 date = datetime.strptime(dateString, '%d%m%Y')
             elif dir == 'Combilog':
-                dateString = filename[6:14]
+                if len(filename) == 19:
+                    dateString = filename[7:15]
+                elif len(filename) == 18:
+                    dateString = filename[6:14]
                 date = datetime.strptime(dateString, '%Y%m%d')
             elif dir == 'SwissMetNet':
-                dateString = filename[7:18]
+                dateString = filename[7:19]
                 date = datetime.strptime(dateString, '%Y%m%d%H%M')
             elif dir == 'SamWi':
                 f = open(targetFile)
