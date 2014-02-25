@@ -56,7 +56,7 @@ def importNabel(fileList):
             sql = "insert into stations_air.quality_log ("
             sql += targetFields + ") VALUES ('"+ idobj + "','" + station_id + "',"+ str(row)[1 : -1]
             sql += ",'" + filename + "');"
-
+            cur.execute(sql)
         conn.commit()
     cur.close()
     conn.close()
