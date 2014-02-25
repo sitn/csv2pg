@@ -18,6 +18,7 @@ f.close()
 
 # if wished, remove all records from folders and database
 if reloadAll:
+    print 'reloading complete database'
     fullDataBaseReload()
 
 
@@ -37,19 +38,32 @@ removeOldRecords()
 
 # Combilog Data
 if dictFilesToLoad.has_key('Combilog'):
-    importCombilog(dictFilesToLoad['Combilog'])
+    try:
+        importCombilog(dictFilesToLoad['Combilog'])
+    except:
+        print 'Combilog import crashed' 
     
 # SwissMetNet Data
 if dictFilesToLoad.has_key('SwissMetNet'):
-    importSwissMetNet(dictFilesToLoad['SwissMetNet'])
+    try:
+        importSwissMetNet(dictFilesToLoad['SwissMetNet'])
+    except:
+        print 'SwissMetNet import crashed' 
     
 # Nabel Data
 if dictFilesToLoad.has_key('Nabel'):
-    importNabel(dictFilesToLoad['Nabel'])
+    try:
+        importNabel(dictFilesToLoad['Nabel'])
+    except:
+        print 'Nabel import crashed' 
+
     
 # SamWi Data
 if dictFilesToLoad.has_key('SamWI'):
-    importSamWi(dictFilesToLoad['SamWI'])
+    try:
+        importSamWi(dictFilesToLoad['SamWI'])
+    except:
+        print 'Nabel import crashed' 
     
 stopUpdateTime = datetime.now()
 executionTime = stopUpdateTime - startUpdateTime

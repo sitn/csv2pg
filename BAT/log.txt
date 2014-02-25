@@ -1,31 +1,286 @@
 
 ############################
 
-Meteo update task started at 2013-10-28 09:57:58.902000
+Meteo update task started at 2013-12-17 09:34:22.662000
 Removed all records in database and directories
 Synchronization task completed
-loading of Combilog data successfull, 56 files loaded into the database
-loading of swissMetNet data successfull, 332 files loaded into the database
-loading of Nabel data successfull, 28 files loaded into the database
-Meteo update task completed at 2013-10-28 10:00:16.012000 duration:0:02:17.110000
+loading of Combilog data successfull, 0 files loaded into the database
+loading of swissMetNet data successfull, 0 files loaded into the database
+loading of Nabel data successfull, 0 files loaded into the database
+loading of SamWi data successfull, 0 files loaded into the database
+Meteo update task completed at 2013-12-17 09:34:22.911000 duration:0:00:00.249000
 ############################
 ############################
 
-Meteo update task started at 2013-10-28 10:04:03.192000
+Meteo update task started at 2013-12-17 09:35:01.131000
 Removed all records in database and directories
 Synchronization task completed
-loading of Combilog data successfull, 56 files loaded into the database
-loading of swissMetNet data successfull, 332 files loaded into the database
-loading of Nabel data successfull, 28 files loaded into the database
-loading of SamWi data successfull, 892 files loaded into the database
-Meteo update task completed at 2013-10-28 10:07:36.562000 duration:0:03:33.370000
+loading of Combilog data successfull, 0 files loaded into the database
+loading of swissMetNet data successfull, 0 files loaded into the database
+loading of Nabel data successfull, 0 files loaded into the database
+loading of SamWi data successfull, 0 files loaded into the database
+Meteo update task completed at 2013-12-17 09:35:01.396000 duration:0:00:00.265000
 ############################
 ############################
 
-Meteo update task started at 2013-10-28 10:40:00.443000
+Meteo update task started at 2013-12-17 09:37:11.360000
+Removed all records in database and directories
+Synchronization task completed
+loading of Combilog data successfull, 0 files loaded into the database
+loading of swissMetNet data successfull, 0 files loaded into the database
+loading of Nabel data successfull, 0 files loaded into the database
+loading of SamWi data successfull, 0 files loaded into the database
+Meteo update task completed at 2013-12-17 09:37:11.610000 duration:0:00:00.250000
+############################
 ############################
 
-Meteo update task started at 2013-10-28 10:50:00.449000
+Meteo update task started at 2013-12-17 09:38:29.142000
+Removed all records in database and directories
+Synchronization task completed
+loading of Combilog data successfull, 0 files loaded into the database
+loading of swissMetNet data successfull, 0 files loaded into the database
+loading of Nabel data successfull, 0 files loaded into the database
+loading of SamWi data successfull, 0 files loaded into the database
+Meteo update task completed at 2013-12-17 09:38:29.391000 duration:0:00:00.249000
+############################
 ############################
 
-Meteo update task started at 2013-10-28 11:00:00.512000
+Meteo update task started at 2013-12-17 09:39:05.552000
+Removed all records in database and directories
+Synchronization task completed
+loading of Combilog data successfull, 0 files loaded into the database
+loading of swissMetNet data successfull, 0 files loaded into the database
+loading of Nabel data successfull, 0 files loaded into the database
+loading of SamWi data successfull, 0 files loaded into the database
+Meteo update task completed at 2013-12-17 09:39:06.379000 duration:0:00:00.827000
+############################
+############################
+
+Meteo update task started at 2013-12-17 09:44:35.586000
+Removed all records in database and directories
+Synchronization task completed
+loading of Combilog data successfull, 0 files loaded into the database
+loading of swissMetNet data successfull, 0 files loaded into the database
+loading of Nabel data successfull, 0 files loaded into the database
+loading of SamWi data successfull, 0 files loaded into the database
+Meteo update task completed at 2013-12-17 09:44:36.756000 duration:0:00:01.170000
+############################
+############################
+
+Meteo update task started at 2013-12-17 09:45:27.908000
+Removed all records in database and directories
+############################
+
+Meteo update task started at 2013-12-17 09:45:45.536000
+Removed all records in database and directories
+Synchronization task completed
+loading of Combilog data successfull, 0 files loaded into the database
+loading of swissMetNet data successfull, 0 files loaded into the database
+loading of Nabel data successfull, 0 files loaded into the database
+loading of SamWi data successfull, 0 files loaded into the database
+Meteo update task completed at 2013-12-17 09:45:48.906000 duration:0:00:03.370000
+############################
+############################
+
+Meteo update task started at 2013-12-17 09:46:17.703000
+Removed all records in database and directories
+############################
+
+Meteo update task started at 2013-12-17 09:46:42.804000
+Removed all records in database and directories
+############################
+
+Meteo update task started at 2013-12-17 09:46:53.677000
+Removed all records in database and directories
+Synchronization task completed
+loading of Combilog data successfull, 9 files loaded into the database
+############################
+
+Meteo update task started at 2013-12-17 09:48:04.766000
+Removed all records in database and directories
+Synchronization task completed
+loading of Combilog data successfull, 9 files loaded into the database
+############################
+
+Meteo update task started at 2013-12-17 09:56:16.166000
+Removed all records in database and directories
+Synchronization task completed
+loading of Combilog data successfull, 9 files loaded into the database
+loading of Nabel data successfull, 6 files loaded into the database
+loading of SamWi data successfull, 1108 files loaded into the database
+Meteo update task completed at 2013-12-17 09:58:30.997000 duration:0:02:14.831000
+############################
+############################
+
+Meteo update task started at 2013-12-17 09:59:44.910000
+Removed all records in database and directories
+Synchronization task completed
+loading of Combilog data successfull, 9 files loaded into the database
+############################
+
+Meteo update task started at 2013-12-17 10:02:25.839000
+Removed all records in database and directories
+Synchronization task completed
+loading of Combilog data successfull, 9 files loaded into the database
+############################
+
+Meteo update task started at 2013-12-17 10:03:34.105000
+Removed all records in database and directories
+############################
+
+Meteo update task started at 2013-12-17 10:05:02.416000
+Removed all records in database and directories
+Synchronization task completed
+############################
+
+Meteo update task started at 2013-12-17 10:07:10.680000
+Removed all records in database and directories
+Synchronization task completed
+############################
+
+Meteo update task started at 2013-12-17 10:09:04.622000
+Removed all records in database and directories
+############################
+
+Meteo update task started at 2013-12-17 10:20:44.983000
+Removed all records in database and directories
+Synchronization task completed
+############################
+
+Meteo update task started at 2013-12-17 10:21:13.992000
+Removed all records in database and directories
+Synchronization task completed
+############################
+
+Meteo update task started at 2013-12-17 10:23:21.805000
+Removed all records in database and directories
+Synchronization task completed
+############################
+
+Meteo update task started at 2013-12-17 10:24:52.217000
+Removed all records in database and directories
+############################
+
+Meteo update task started at 2013-12-17 10:25:22.297000
+Removed all records in database and directories
+############################
+
+Meteo update task started at 2013-12-17 10:26:26.622000
+Removed all records in database and directories
+############################
+
+Meteo update task started at 2013-12-17 10:27:30.573000
+Removed all records in database and directories
+############################
+
+Meteo update task started at 2013-12-17 10:28:04.740000
+Removed all records in database and directories
+############################
+
+Meteo update task started at 2013-12-17 10:28:20.466000
+Removed all records in database and directories
+Synchronization task completed
+############################
+
+Meteo update task started at 2013-12-17 10:29:27.891000
+Removed all records in database and directories
+Synchronization task completed
+############################
+
+Meteo update task started at 2013-12-17 10:29:50.184000
+Removed all records in database and directories
+############################
+
+Meteo update task started at 2013-12-17 10:30:53.413000
+Removed all records in database and directories
+############################
+
+Meteo update task started at 2013-12-17 10:31:05.909000
+Removed all records in database and directories
+Synchronization task completed
+loading of swissMetNet data successfull, 23 files loaded into the database
+Meteo update task completed at 2013-12-17 10:31:16.081000 duration:0:00:10.172000
+############################
+############################
+
+Meteo update task started at 2013-12-17 10:31:51.072000
+Removed all records in database and directories
+Synchronization task completed
+loading of Combilog data successfull, 3 files loaded into the database
+loading of swissMetNet data successfull, 23 files loaded into the database
+loading of Nabel data successfull, 2 files loaded into the database
+loading of SamWi data successfull, 1108 files loaded into the database
+Meteo update task completed at 2013-12-17 10:33:53.379000 duration:0:02:02.307000
+############################
+############################
+
+Meteo update task started at 2013-12-17 10:37:24.823000
+Removed all records in database and directories
+Synchronization task completed
+loading of Combilog data successfull, 9 files loaded into the database
+loading of swissMetNet data successfull, 43 files loaded into the database
+loading of Nabel data successfull, 6 files loaded into the database
+loading of SamWi data successfull, 1108 files loaded into the database
+Meteo update task completed at 2013-12-17 10:39:35.941000 duration:0:02:11.118000
+############################
+############################
+
+Meteo update task started at 2013-12-17 11:04:31.685000
+Synchronization task completed
+loading of Nabel data successfull, 0 files loaded into the database
+Meteo update task completed at 2013-12-17 11:04:31.856000 duration:0:00:00.171000
+############################
+############################
+
+Meteo update task started at 2013-12-17 11:04:43.042000
+Removed all records in database and directories
+Synchronization task completed
+loading of Nabel data successfull, 6 files loaded into the database
+Meteo update task completed at 2013-12-17 11:04:47.768000 duration:0:00:04.726000
+############################
+############################
+
+Meteo update task started at 2013-12-17 11:05:19.280000
+Removed all records in database and directories
+Synchronization task completed
+loading of Nabel data successfull, 6 files loaded into the database
+Meteo update task completed at 2013-12-17 11:05:19.592000 duration:0:00:00.312000
+############################
+############################
+
+Meteo update task started at 2013-12-17 11:06:59.354000
+Removed all records in database and directories
+Synchronization task completed
+loading of Nabel data successfull, 6 files loaded into the database
+Meteo update task completed at 2013-12-17 11:06:59.776000 duration:0:00:00.422000
+############################
+############################
+
+Meteo update task started at 2013-12-17 11:07:41.240000
+Removed all records in database and directories
+Synchronization task completed
+loading of Nabel data successfull, 6 files loaded into the database
+Meteo update task completed at 2013-12-17 11:07:41.677000 duration:0:00:00.437000
+############################
+############################
+
+Meteo update task started at 2013-12-17 11:07:52.582000
+Removed all records in database and directories
+############################
+
+Meteo update task started at 2013-12-17 11:08:05.186000
+Removed all records in database and directories
+Synchronization task completed
+loading of Combilog data successfull, 9 files loaded into the database
+Synchronization task completed
+loading of Combilog data successfull, 9 files loaded into the database
+loading of swissMetNet data successfull, 0 files loaded into the database
+loading of Nabel data successfull, 6 files loaded into the database
+loading of swissMetNet data successfull, 43 files loaded into the database
+loading of Nabel data successfull, 6 files loaded into the database
+loading of SamWi data successfull, 722 files loaded into the database
+Meteo update task completed at 2013-12-17 11:09:28.802000 duration:0:01:23.616000
+############################
+loading of SamWi data successfull, 1108 files loaded into the database
+Meteo update task completed at 2013-12-17 11:10:07.880000 duration:0:02:15.298000
+############################
