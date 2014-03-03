@@ -65,11 +65,11 @@ for filename in os.listdir(gridSourceDir):
         destFilePath =  destFileRootPath + filename[:-3]
         destImageFolder = mapserverFileDir + '/no2/'
         filePath = destImageFolder + filename[:-7] + '.tif'
-        relFilePath = '/no2/' + filename[:-7] + '.tif'
+        # relFilePath = '/no2/' + filename[:-7] + '.tif'
         gdalcmd = gdalpath + '/gdaldem.exe color-relief ' + destFilePath + ' ' + no2ColorRamp + ' ' + filePath + ' -alpha -co ALPHA=YES'
         
         sqlInsert = "insert into stations_air.no2_tileindex (idobj, date_time, filepath, geom)"
-        sqlInsert += " VALUES ('"+ idobj + "','" + strFileDate +  "','" + relFilePath                   
+        sqlInsert += " VALUES ('"+ idobj + "','" + strFileDate +  "','" + filePath                   
         sqlInsert += "', st_geomfromtext('POLYGON((523500 188900, 523500 224100, 573500 224100, 573500 188900, 523500 188900))', 21781));"
         
         sqlDel = "delete from stations_air.no2_tileindex where date_time = '" +  strFileDate + "';"
@@ -83,11 +83,11 @@ for filename in os.listdir(gridSourceDir):
         destFilePath =  destFileRootPath + filename[:-3]
         destImageFolder = mapserverFileDir + '/o3/'
         filePath = destImageFolder + filename[:-7] + '.tif'
-        relFilePath = '/o3/' + filename[:-7] + '.tif'
+        # relFilePath = '/o3/' + filename[:-7] + '.tif'
         gdalcmd = gdalpath + '/gdaldem.exe color-relief ' + destFilePath + ' ' + o3ColorRamp + ' ' + filePath + ' -alpha -co ALPHA=YES'
         
         sqlInsert = "insert into stations_air.o3_tileindex (idobj, date_time, filepath, geom)"
-        sqlInsert += " VALUES ('"+ idobj + "','" + strFileDate +  "','" + relFilePath                   
+        sqlInsert += " VALUES ('"+ idobj + "','" + strFileDate +  "','" + filePath                   
         sqlInsert += "', st_geomfromtext('POLYGON((523500 188900, 523500 224100, 573500 224100, 573500 188900, 523500 188900))', 21781));"
         
         sqlDel = "delete from stations_air.o3_tileindex where date_time = '" +  strFileDate + "';"
@@ -100,11 +100,11 @@ for filename in os.listdir(gridSourceDir):
         destFilePath =  destFileRootPath + filename[:-3]  
         destImageFolder = mapserverFileDir + '/pm10/'
         filePath = destImageFolder + filename[:-7] + '.tif'
-        relFilePath = '/pm10/' + filename[:-7] + '.tif'
+        # relFilePath = '/pm10/' + filename[:-7] + '.tif'
         gdalcmd = gdalpath + '/gdaldem.exe color-relief ' + destFilePath + ' ' + pm10ColorRamp + ' ' + filePath + ' -alpha -co ALPHA=YES'  
 
         sqlInsert = "insert into stations_air.pm10_tileindex (idobj, date_time, filepath, geom)"
-        sqlInsert += " VALUES ('"+ idobj + "','" + strFileDate +  "','" + relFilePath                   
+        sqlInsert += " VALUES ('"+ idobj + "','" + strFileDate +  "','" + filePath                   
         sqlInsert += "', st_geomfromtext('POLYGON((523500 188900, 523500 224100, 573500 224100, 573500 188900, 523500 188900))', 21781));"
         
         sqlDel = "delete from stations_air.pm10_tileindex where date_time = '" +  strFileDate + "';"
