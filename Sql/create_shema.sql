@@ -536,3 +536,78 @@ ALTER TABLE stations_air.quality_layer
   OWNER TO mapfish;
 GRANT ALL ON TABLE stations_air.quality_layer TO mapfish;
 GRANT SELECT ON TABLE stations_air.quality_layer TO "www-data";
+
+
+-- Grid DATA
+
+CREATE TABLE stations_air.no2_tileindex
+(
+  idobj text,
+  date_time timestamp without time zone,
+  filepath text,
+  asciigrid_path text,
+  geom geometry,
+  CONSTRAINT enforce_dims_geom CHECK (st_ndims(geom) = 2),
+  CONSTRAINT enforce_geotype_geom CHECK (geometrytype(geom) = 'POLYGON'::text OR geom IS NULL),
+  CONSTRAINT enforce_srid_geom CHECK (st_srid(geom) = 21781)
+)
+WITH (
+  OIDS=TRUE
+);
+ALTER TABLE stations_air.no2_tileindex
+  OWNER TO mapfish;
+GRANT ALL ON TABLE stations_air.no2_tileindex TO mapfish;
+GRANT SELECT ON TABLE stations_air.no2_tileindex TO "www-data";
+
+CREATE INDEX no2_tileindex_geom_1386601930931
+  ON stations_air.no2_tileindex
+  USING gist
+  (geom );
+  
+  CREATE TABLE stations_air.o3_tileindex
+(
+  idobj text,
+  date_time timestamp without time zone,
+  filepath text,
+  asciigrid_path text,
+  geom geometry,
+  CONSTRAINT enforce_dims_geom CHECK (st_ndims(geom) = 2),
+  CONSTRAINT enforce_geotype_geom CHECK (geometrytype(geom) = 'POLYGON'::text OR geom IS NULL),
+  CONSTRAINT enforce_srid_geom CHECK (st_srid(geom) = 21781)
+)
+WITH (
+  OIDS=TRUE
+);
+ALTER TABLE stations_air.o3_tileindex
+  OWNER TO mapfish;
+GRANT ALL ON TABLE stations_air.o3_tileindex TO mapfish;
+GRANT SELECT ON TABLE stations_air.o3_tileindex TO "www-data";
+
+CREATE INDEX o3_tileindex_geom_1386601930931
+  ON stations_air.o3_tileindex
+  USING gist
+  (geom );
+  
+  CREATE TABLE stations_air.pm10_tileindex
+(
+  idobj text,
+  date_time timestamp without time zone,
+  filepath text,
+  asciigrid_path text,
+  geom geometry,
+  CONSTRAINT enforce_dims_geom CHECK (st_ndims(geom) = 2),
+  CONSTRAINT enforce_geotype_geom CHECK (geometrytype(geom) = 'POLYGON'::text OR geom IS NULL),
+  CONSTRAINT enforce_srid_geom CHECK (st_srid(geom) = 21781)
+)
+WITH (
+  OIDS=TRUE
+);
+ALTER TABLE stations_air.pm10_tileindex
+  OWNER TO mapfish;
+GRANT ALL ON TABLE stations_air.pm10_tileindex TO mapfish;
+GRANT SELECT ON TABLE stations_air.pm10_tileindex TO "www-data";
+
+CREATE INDEX pm10_tileindex_geom_1386601930932
+  ON stations_air.pm10_tileindex
+  USING gist
+  (geom );
