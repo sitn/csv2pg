@@ -22,7 +22,6 @@ def importSwissMetNet(fileList):
         if isFileModified:
             sql = "delete from stations_air.meteo_log where sourcefile_name = '" + filename + "';" 
             cur.execute(sql)
-            
         k+=1
         print 'loading file : ' + filename
         filePath = targetDir + 'swissMetNet/' + filename
