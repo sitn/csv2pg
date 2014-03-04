@@ -18,10 +18,6 @@ def importSwissMetNet(fileList):
     k = 0
     for item in fileList:
         filename = item[0]
-        isFileModified = item[1]
-        if isFileModified:
-            sql = "delete from stations_air.meteo_log where sourcefile_name = '" + filename + "';" 
-            cur.execute(sql)
         k+=1
         print 'loading file : ' + filename
         filePath = targetDir + 'swissMetNet/' + filename
@@ -45,9 +41,16 @@ def importSwissMetNet(fileList):
             for i in range(0,len(row)):
                 if row[i].strip() =='-':
                     row[i]='-9999'
+
             # change dateTime format...
             recordDateTime = datetime.strptime(str(row[1]),'%Y%m%d%H%M')
             row[1] = str(recordDateTime)
+            
+            # SwissMetNet files are full of duplicated, thus, existing records must be erased before the latest is inserted
+            sqlRemove = "delete from stations_air.meteo_log where station_id = '" + row[0] + "' and date_time = '" + row[1] + "';" 
+            cur.execute(sqlRemove)
+            conn.commit()
+            # Insert SwissMetNet values
             sql = "insert into stations_air.meteo_log ("
             sql += targetFields + ") VALUES ('"+ idobj + "'," + str(row)[1 : -1]                     
             sql += ",'" + filename + "');"
