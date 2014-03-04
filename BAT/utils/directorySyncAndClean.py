@@ -50,7 +50,7 @@ def dirSync():
                     
                 # only copy file produced during the choosen time interval
                 if datetime.today() - date <= timedelta(days = nbDays):
-                    # if the file doesn't exist in target sir, it's a new one and we copy it
+                    # if the file doesn't exist in target dir, it's a new one and we copy it
                     if not os.path.exists(targetDir + dir + '/' + filename):
                         print targetFile
                         shutil.copy(inputFile,targetFile)
@@ -60,7 +60,7 @@ def dirSync():
                     # if it does exist, we need to check if it has been modified
                     else:
                         # check if file has been overwritten in remote directory
-                        fileModified = filecmp.cmp(inputFile, targetFile)
+                        fileModified = filecmp.cmp(inputFile, targetFile) #return True if equals
                         
                         if not fileModified:
                             shutil.copy(inputFile,targetFile)
@@ -140,7 +140,6 @@ def fullDataBaseReload():
     conn.commit()
     cur.close()
     conn.close()
-    
     # empty folders
     
     for dir in directories:
