@@ -157,11 +157,11 @@ print 'Removing old records from database'
 
 oldestRecordKept = datetime.today()-timedelta(days = nbDaysGrid)
 cur = conn.cursor()
-sql = "delete from stations_air.no2_grid where date_time < '" + str(oldestRecordKept) + "';"
+sql = "delete from stations_air.no2_tileindex where date_time < '" + str(oldestRecordKept) + "';"
 cur.execute(sql)
-sql = "delete from stations_air.o3_grid where date_time < '" + str(oldestRecordKept) + "';"
+sql = "delete from stations_air.o3_tileindexwhere date_time < '" + str(oldestRecordKept) + "';"
 cur.execute(sql)
-sql = "delete from stations_air.pm10_grid where date_time < '" + str(oldestRecordKept) + "';"
+sql = "delete from stations_air.pm10_tileindex where date_time < '" + str(oldestRecordKept) + "';"
 cur.execute(sql)
 conn.commit()
 cur.close()
