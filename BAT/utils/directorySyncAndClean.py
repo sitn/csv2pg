@@ -121,6 +121,9 @@ def removeOldRecords():
     sql = "delete from stations_air.meteo_log where date_time < '" + str(oldestRecordKept) + "';"
     cur.execute(sql)
     conn.commit()
+    sql = "delete from stations_air.quality_log where date_time < '" + str(oldestRecordKept) + "';"
+    cur.execute(sql)
+    conn.commit()
     cur.close()
     conn.close()
     print 'removed records older that ' + str(nbDays) + ' days from the datebase'
