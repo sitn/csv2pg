@@ -37,10 +37,10 @@ def dirSync():
                 elif dir == 'SwissMetNet':
                     dateString = filename[7:19]
                     date = datetime.strptime(dateString, '%Y%m%d%H%M')
-                elif dir == 'SamWi':
+                elif dir == 'SamWI':
                     f = open(inputFile)
-                    csv.register_dialect('SamWi', delimiter=',', skipinitialspace=1)
-                    reader = csv.reader(f, dialect='SamWi')
+                    csv.register_dialect('SamWI', delimiter=',', skipinitialspace=1)
+                    reader = csv.reader(f, dialect='SamWI')
                     l1 = reader.next()
                     reader.next()
                     reader.next()
@@ -56,7 +56,6 @@ def dirSync():
                         shutil.copy(inputFile,targetFile)
                         nbNewFilesCopied += 1
                         filesToLoad.append([filename, False])
-                        print targetFile                 
                     # if it does exist, we need to check if it has been modified
                     else:
                         # check if file has been overwritten in remote directory
@@ -119,6 +118,9 @@ def removeOldRecords():
     oldestRecordKept = datetime.today()-timedelta(days = nbDays)
     cur = conn.cursor()
     sql = "delete from stations_air.meteo_log where date_time < '" + str(oldestRecordKept) + "';"
+    cur.execute(sql)
+    conn.commit()
+    sql = "delete from stations_air.quality_log where date_time < '" + str(oldestRecordKept) + "';"
     cur.execute(sql)
     conn.commit()
     cur.close()
