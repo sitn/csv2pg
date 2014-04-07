@@ -104,7 +104,9 @@ Combilog = {
   '':'tcell',
   '':'res1',
   '':'res2',
-  '':'res3'
+  '':'res3',
+  'Prec-S':'prec_s',
+  'Prec-D':'prec_d'
 }
 
 SamWi = {
