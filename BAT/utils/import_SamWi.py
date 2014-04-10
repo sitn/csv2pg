@@ -45,15 +45,8 @@ def importSamWi(fileList):
         t = 0
         u = 0
         for header in headers:
-            # ugly data = ugly cleaning !!!
-            if header=='Vvit' and t==0:
-                targetFields += 'vvit_2,'
-                t+=1
-            elif header=='PM10-C' and u==0:
-                targetFields += 'pm10_c_2,'
-                u+=1
-            else:
-                targetFields += SamWi[header] +','   
+            targetFields += SamWi[header] +','
+            
         targetFields = 'idobj,station_id,date_time,' + targetFields
         targetFields = targetFields[0:-1]
         targetFields += ',sourcefile_name'
